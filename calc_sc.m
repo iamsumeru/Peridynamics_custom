@@ -1,0 +1,11 @@
+Gc=3
+E=12e9
+mu=0.2
+size=5.5e-4*2
+shear_mod=E/(2*(1+mu))
+bulk_mod=E/(3*(1-2*mu))
+delta=4*size
+pi=22/7
+dr=((6/pi)*shear_mod)+((16/(9*pi*pi))*(bulk_mod-2*shear_mod))
+dr_del=dr*delta
+sc=sqrt(Gc/dr_del)

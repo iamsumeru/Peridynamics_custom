@@ -1,0 +1,89 @@
+Discretization
+    Type "Text File"
+    Input Mesh File "mesh.txt"
+
+Materials
+    My_Material
+        Material Model "Elastic"
+        Density 2640.0
+        Bulk Modulus 10.0e9
+        Shear Modulus 7.5e9
+    NMy_Material
+        Material Model "Elastic"
+        Density 7000.0
+        Bulk Modulus 38.889e9
+        Shear Modulus 29.167e9
+    NnMy_Material
+        Material Model "Elastic"
+        Density 800.0
+        Bulk Modulus 6.6667e9
+        Shear Modulus 5.0e9		
+
+Damage Models
+    My_Damage_Model
+        Damage Model "Critical Stretch"
+        Critical Stretch 0.00050152
+    NnMy_Damage_Model
+        Damage Model "Critical Stretch"
+        Critical Stretch 0.00028955	
+Blocks
+    My_Block
+        Block Names "block_1"
+        Material "My_Material"
+        Damage Model "My_Damage_Model"
+        Horizon 0.00004
+    NMy_Block
+        Block Names "block_2"
+        Material "NMy_Material"
+        Horizon 0.00004
+    NnMy_Block
+        Block Names "block_3"
+        Material "NnMy_Material"
+        Damage Model "NnMy_Damage_Model"		
+        Horizon 0.00004		
+
+Boundary Conditions
+    #Node Set One "node_list_left_end"
+    #Node Set Two "node_list_right_end"
+    #Node Set Three "node_list_top_end"
+    #Node Set Four "node_list_bottom_end"
+    Node Set Five "node_list_2Dsheet"	
+    Initial Velocity X
+        Type "Initial Velocity"
+        Node Set "Node Set Five"
+        Coordinate "x"
+        Value "10000.0*(x+0.0015)"
+
+Solver
+    Initial Time 0.0
+    Final Time 1.5e-6
+    Verlet
+        Safety Factor 0.6
+# Output file for full data set, disk_impact.e
+Output_1
+    Output File Type "ExodusII"
+    Output Filename "meso_mortar"
+    Output Frequency 5
+    Output Variables
+        Displacement "true"
+        Velocity "true"
+        Element_Id "true"
+        Proc_Num "true"
+        Dilatation "true"
+        Weighted_Volume "true"
+        Force "true"
+        Contact_Force "true"
+        Damage "true"
+        Number_Of_Neighbors "true"
+        Radius "true"
+
+# Output file for history data (global data), disk_impact.h
+Output_2
+    Output File Type "ExodusII"
+    Output Filename "meso_mortar"
+    Output Frequency 35
+    Output Variables
+        Global_Kinetic_Energy "true"
+        Global_Linear_Momentum "true"
+        Global_Angular_Momentum "true"
+	  
